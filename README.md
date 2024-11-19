@@ -53,6 +53,7 @@ NEXTAUTH_URL=http://localhost:3000
 NEXTAUTH_SECRET=your_nextauth_secret  
 RAZORPAY_KEY_ID=your_razorpay_key  
 RAZORPAY_KEY_SECRET=your_razorpay_secret  
+```
 
 4. Run the development server:
 
