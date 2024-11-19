@@ -1,0 +1,12 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+.button-style {
+    @apply px-3 py-2 bg-blue-600 text-white font-bold rounded-md text-lg hover:bg-blue-500;
+}
+
+.login-btn {
+    @apply flex items-center bg-white border border-gray-300 rounded-lg shadow-md max-w-xs px-6 py-2 text-xl font-medium text-gray-800 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500;
+}
