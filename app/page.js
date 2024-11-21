@@ -14,8 +14,8 @@ export default function Home() {
             <CiGift />
           </div>
           <div className="md:text-2xl text-xl text-center px-4 font-extralight">
-            A crowdfunding platform for creator. Get funded from people who want
-            to be contribute. Start now...
+            A crowdfunding platform for creators. Get funded from people who
+            want to contribute. Start now...
           </div>
           <div className="buttons flex justify-center items-center gap-5">
             <Link href={"/login"}>
@@ -29,48 +29,48 @@ export default function Home() {
 
         <div className="bg-white h-1"></div>
 
-        <div className="md:h-[60vh] my-3 container mx-auto flex flex-col justify-center md:gap-32 gap-4">
+        <div className="md:h-[60vh] my-3 container mx-auto flex flex-col justify-center md:gap-32 gap-4 pb-3">
           <div className="font-bold text-4xl text-center">
             Your Community can contribute
           </div>
-          <div className=" flex justify-around flex-col md:flex-row items-center gap-4 pb-3">
-            <div className="flex flex-col  justify-center items-center gap-2">
+          <div className="flex justify-around flex-col md:flex-row items-center gap-4">
+            <div className="flex flex-col justify-center items-center gap-2">
               <div className="bg-gray-800 cursor-pointer rounded-full p-5 text-6xl">
                 <BsPersonWorkspace />
               </div>
-              <div className="text-xl font-bold">want to help</div>
-              <div>people who want to help you</div>
+              <div className="text-xl font-bold">Want to help</div>
+              <div>People who want to help you</div>
             </div>
             <div className="flex flex-col justify-center items-center gap-2">
               <div className="bg-gray-800 cursor-pointer rounded-full p-5 text-6xl">
                 <RiMoneyDollarCircleLine />
               </div>
-              <div className="text-xl font-bold">want to contribute</div>
-              <div>people who want to contribute financially</div>
+              <div className="text-xl font-bold">Want to contribute</div>
+              <div>People who want to contribute financially</div>
             </div>
             <div className="flex flex-col justify-center items-center gap-2">
               <div className="bg-gray-800 cursor-pointer rounded-full p-5 text-6xl">
                 <IoIosPeople />
               </div>
-              <div className="text-xl font-bold">want to collaborate</div>
-              <div>people who want to collaborate</div>
+              <div className="text-xl font-bold">Want to collaborate</div>
+              <div>People who want to collaborate</div>
             </div>
           </div>
         </div>
 
         <div className="bg-white h-1"></div>
 
-      
         <div className="h-[60vh] container mx-auto flex flex-col justify-center items-center gap-12">
           <div className="font-bold text-4xl">Learn More About Me</div>
           <div className="text-center px-4 md:px-8 text-lg text-gray-300">
-            CreatorHub is not just a platform—it's a vision. As the creator of
-            this space, I believe in empowering people to share their
+            CreatorHub is not just a platform—it&apos;s a vision. As the creator
+            of this space, I believe in empowering people to share their
             creativity, connect with communities, and bring their ideas to life.
-            Whether you're a creator seeking support, a collaborator looking for
-            partnerships, or someone who simply wants to make an impact,
-            CreatorHub is here to make that possible. Join me on this journey to
-            fuel creativity and build something extraordinary together!
+            Whether you&apos;re a creator seeking support, a collaborator
+            looking for partnerships, or someone who simply wants to make an
+            impact, CreatorHub is here to make that possible. Join me on this
+            journey to fuel creativity and build something extraordinary
+            together!
           </div>
         </div>
 

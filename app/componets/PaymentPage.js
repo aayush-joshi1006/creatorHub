@@ -1,15 +1,15 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import Script from "next/script";
 import { CgProfile } from "react-icons/cg";
-import { fetchuser, fetchPayments, initiate } from "@/app/actions/useractions";
-import { useSession } from "next-auth/react";
+import { fetchuser, fetchPayments } from "@/app/actions/useractions";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Bounce } from "react-toastify";
-import { useSearchParams } from "next/navigation";
-import { useRouter } from "next/navigation";
+import { useSearchParams, useRouter } from "next/navigation";
+import Image from "next/image";
+import { initiate } from "@/app/actions/useractions";
 
 const PaymentPage = ({ username }) => {
   const [paymentform, setPaymentform] = useState({
@@ -21,14 +21,24 @@ const PaymentPage = ({ username }) => {
   const [payments, setPayments] = useState([]);
   const searchParams = useSearchParams();
   const router = useRouter();
-  // const {data:session}=useSession()
 
+  // Stabilize the getData function with useCallback
+  const getData = useCallback(async () => {
+    let u = await fetchuser(username);
+    setCurrentUser(u);
+
+    let dbpayments = await fetchPayments(username);
+    setPayments(dbpayments);
+  }, [username]);
+
+  // Fetch data when the component mounts or username changes
   useEffect(() => {
     getData();
-  }, []);
+  }, [getData]);
 
+  // Handle payment success notification
   useEffect(() => {
-    if (searchParams.get("paymentdone") == "true") {
+    if (searchParams.get("paymentdone") === "true") {
       toast("Payment Done!! Thanks for your donation", {
         position: "bottom-right",
         autoClose: 3000,
@@ -40,19 +50,13 @@ const PaymentPage = ({ username }) => {
         theme: "dark",
         transition: Bounce,
       });
+
       router.push(`${username}`);
     }
-  }, []);
+  }, [searchParams, router, username]);
 
   const handleChange = (e) => {
     setPaymentform({ ...paymentform, [e.target.name]: e.target.value });
-  };
-
-  const getData = async (params) => {
-    let u = await fetchuser(username);
-    setCurrentUser(u);
-    let dbpayments = await fetchPayments(username);
-    setPayments(dbpayments);
   };
 
   const pay = async (amount) => {
@@ -104,11 +108,15 @@ const PaymentPage = ({ username }) => {
                   ? currentUser.coverpic
                   : "https://cdn.vectorstock.com/i/500p/58/43/black-chalkboard-background-vector-4305843.jpg"
               }
-              alt=""
+              alt="This is a cover picture"
+              width={500}
+              height={500}
             />
           </div>
           <div className="absolute -bottom-16 md:left-[47%] left-[36%] size-36">
             <img
+              width={500}
+              height={500}
               className="size-36 object-cover rounded-full overflow-hidden border-2 border-white z-10 bg-black"
               src={
                 currentUser.profilepic
@@ -137,16 +145,16 @@ const PaymentPage = ({ username }) => {
               {payments.length == 0 && <li>No payments yet</li>}
               {payments.slice(0, 8).map((p, i) => {
                 return (
-                  <li className="flex items-center gap-2">
+                  <li key={p.id || i} className="flex items-center gap-2">
                     <CgProfile />
                     <span>
                       {p.name} donated{" "}
                       <span className="font-bold">₹{p.amount / 100}</span> with
-                      a message "
+                      a message &quot;
                       <span className="text-slate-500 italic font-thin">
                         {p.message}
                       </span>
-                      "
+                      &quot;
                     </span>
                   </li>
                 );
@@ -195,18 +203,24 @@ const PaymentPage = ({ username }) => {
               <div className="payButtons flex gap-5 my-2">
                 <button
                   className="bg-slate-700 py-2 px-3 rounded-lg border hover:bg-slate-600"
+                  aria-label="Pay ₹10"
+                  title="Pay ₹10"
                   onClick={() => pay(1000)}
                 >
                   Pay ₹10
                 </button>
                 <button
                   className="bg-slate-700 py-2 px-3 rounded-lg border hover:bg-slate-600"
+                  aria-label="Pay ₹20"
+                  title="Pay ₹20"
                   onClick={() => pay(2000)}
                 >
                   Pay ₹20
                 </button>
                 <button
                   className="bg-slate-700 py-2 px-3 rounded-lg border hover:bg-slate-600"
+                  aria-label="Pay ₹30"
+                  title="Pay ₹30"
                   onClick={() => pay(3000)}
                 >
                   Pay ₹30
