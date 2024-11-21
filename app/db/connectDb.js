@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const connectDB = async () => {
     try {
-      const conn = await mongoose.connect(`mongodb://localhost:27017/creatorhub`, {
+      const conn = await mongoose.connect(`${process.env.MONGODB_URI}`, {
         useNewUrlParser: true,
       });
       console.log(`MongoDB Connected: ${conn.connection.host}`);
