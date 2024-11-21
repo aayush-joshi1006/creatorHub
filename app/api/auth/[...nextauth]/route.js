@@ -1,15 +1,15 @@
-import mongoose from 'mongoose'
-import NextAuth from 'next-auth'
+import mongoose from "mongoose";
+import NextAuth from "next-auth";
 // import AppleProvider from 'next-auth/providers/apple'
 // import FacebookProvider from 'next-auth/providers/facebook'
 // import GoogleProvider from 'next-auth/providers/google'
 // import EmailProvider from 'next-auth/providers/email'
-import GitHubProvider from 'next-auth/providers/github'
-import User from '@/models/User'
-import Payment from '@/models/Payment'
-import connectDB from '@/app/db/connectDb'
+import GitHubProvider from "next-auth/providers/github";
+import User from "@/app/models/User";
+import Payment from "@/app/models/Payment";
+import connectDB from "@/app/db/connectDb";
 
-export const authoptions= NextAuth({
+export const authoptions = NextAuth({
   providers: [
     // OAuth authentication providers...
     // AppleProvider({
@@ -35,40 +35,40 @@ export const authoptions= NextAuth({
     }),
   ],
   callbacks: {
-    async signIn({user, account, profile, credentials}){
-      if(account.provider == "github") {
+    async signIn({ user, account, profile, credentials }) {
+      if (account.provider == "github") {
         // const client =await mongoose.connect("mongodb://localhost:27017/creatorhub")
-        await connectDB()
+        await connectDB();
 
-        const email= user.email || profile?.email
+        const email = user.email || profile?.email;
 
-        if(!email){
-          console.error("Email not available during GitHub authentication")
-          return false
+        if (!email) {
+          console.error("Email not available during GitHub authentication");
+          return false;
         }
 
-        const currentUser= await User.findOne({email: email})
-        if(!currentUser){
-          const newUser=new User({
+        const currentUser = await User.findOne({ email: email });
+        if (!currentUser) {
+          const newUser = new User({
             email: email,
             username: email.split("@")[0],
-          })
-          await newUser.save()
+          });
+          await newUser.save();
           // user.name= newUser.username
         }
         // else{
         //   user.name=currentUser.username
         // }
-        return true
+        return true;
       }
     },
     async session({ session, user, token }) {
-      const dbUser= await User.findOne({email: session.user.email})
+      const dbUser = await User.findOne({ email: session.user.email });
       // session.user.name = dbUser.username
-      session.user.name= dbUser?.username || session.user.name
-      return session
+      session.user.name = dbUser?.username || session.user.name;
+      return session;
     },
-  }
-})
+  },
+});
 
-export {authoptions as GET, authoptions as POST}
+export { authoptions as GET, authoptions as POST };

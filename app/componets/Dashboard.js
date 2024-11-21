@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { useSession, signIn, signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { fetchuser, updateProfile } from "@/actions/useractions";
+import { fetchuser, updateProfile } from "@/app/actions/useractions";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Bounce } from "react-toastify";
@@ -111,11 +111,7 @@ const Dashboard = () => {
               Profile Picture
             </label>
             <input
-              value={
-                form.profilepic
-                  ? form.profilepic
-                  : ""
-              }
+              value={form.profilepic ? form.profilepic : ""}
               name="profilepic"
               type="text"
               className="border-2 outline-none w-full py-2 px-5 rounded-xl"
@@ -170,5 +166,3 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
-
-
