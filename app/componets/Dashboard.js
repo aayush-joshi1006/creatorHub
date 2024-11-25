@@ -12,12 +12,12 @@ const Dashboard = () => {
   const router = useRouter();
   const [form, setform] = useState({});
 
-   const getData = async () => {
+   const getData = useCallback(async () => {
      if (session?.user?.name) {
        let u = await fetchuser(session.user.name);
        setform(u);
      }
-   };
+   },[session]);
 
   useEffect(() => {
     if (!session) {
@@ -25,7 +25,7 @@ const Dashboard = () => {
     } else {
       getData();
     }
-  }, [session, router]);
+  }, [session, router,getData]);
 
  
   const handleChange = (e) => {
