@@ -3,13 +3,13 @@
 import React, { useEffect, useState, useCallback } from "react";
 import Script from "next/script";
 import { CgProfile } from "react-icons/cg";
-import { fetchuser, fetchPayments } from "@/actions/useractions";
+import { fetchuser, fetchPayments } from "@/app/actions/useractions";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Bounce } from "react-toastify";
 import { useSearchParams, useRouter } from "next/navigation";
 import Image from "next/image";
-import { initiate } from "@/actions/useractions";
+import { initiate } from "@/app/actions/useractions";
 
 const PaymentPage = ({ username }) => {
   const [paymentform, setPaymentform] = useState({
