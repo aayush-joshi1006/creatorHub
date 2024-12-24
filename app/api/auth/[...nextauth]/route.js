@@ -73,13 +73,11 @@
 
 // export { authoptions as GET, authoptions as POST };
 
-
-import mongoose from "mongoose";
 import NextAuth from "next-auth";
 import GitHubProvider from "next-auth/providers/github";
-import User from "@/app/models/User";
-import connectDB from "@/app/db/connectDb";
-
+import User from "@/models/User";
+import connectDB from "@/db/connectDb";
+// @/db/connectDb
 // Ensure database connection is established at startup
 connectDB();
 

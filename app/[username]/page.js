@@ -1,7 +1,7 @@
 import React from "react";
-import PaymentPage from "../componets/PaymentPage";
+import PaymentPage from "../../componets/PaymentPage";
 import { notFound } from "next/navigation";
-import User from "../models/User";
+import User from "../../models/User";
 
 const Username = async ({ params }) => {
   const checkUser = async () => {

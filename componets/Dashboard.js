@@ -2,23 +2,22 @@
 import React, { useEffect, useState, useCallback } from "react";
 import { useSession, signIn, signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { fetchuser,updateProfile } from "../actions/useractions";
+import { fetchuser, updateProfile } from "../actions/useractions";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Bounce } from "react-toastify";
-
 
 const Dashboard = () => {
   const { data: session, update } = useSession();
   const router = useRouter();
   const [form, setform] = useState({});
 
-   const getData = useCallback(async () => {
-     if (session?.user?.name) {
-       let u = await fetchuser(session.user.name);
-       setform(u);
-     }
-   },[session]);
+  const getData = useCallback(async () => {
+    if (session?.user?.name) {
+      let u = await fetchuser(session.user.name);
+      setform(u);
+    }
+  }, [session]);
 
   useEffect(() => {
     if (!session) {
@@ -26,9 +25,8 @@ const Dashboard = () => {
     } else {
       getData();
     }
-  }, [session, router,getData]);
+  }, [session, router, getData]);
 
- 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setform({ ...form, [e.target.name]: e.target.value });
