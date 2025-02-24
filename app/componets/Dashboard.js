@@ -12,12 +12,11 @@ const Dashboard = () => {
   const router = useRouter();
   const [form, setform] = useState({});
 
-  const getData = useCallback(async () => {
-    if (session?.user?.name) {
+  const getData = async () => {
+  
       let u = await fetchuser(session.user.name);
       setform(u);
-    }
-  }, [session]);
+  };
 
   useEffect(() => {
     if (!session) {
@@ -25,16 +24,15 @@ const Dashboard = () => {
     } else {
       getData();
     }
-  }, [session, router, getData]);
+  }, []);
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
     setform({ ...form, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = async (e) => {
     // e.preventDefault();
-    let a = await updateProfile(form, session.user.name);
+    let a = await updateProfile(e, session.user.name);
     toast("Profile Updated", {
       position: "bottom-right",
       autoClose: 3000,

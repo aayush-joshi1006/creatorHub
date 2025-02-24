@@ -23,18 +23,18 @@ const PaymentPage = ({ username }) => {
   const router = useRouter();
 
   // Stabilize the getData function with useCallback
-  const getData = useCallback(async () => {
+  const getData = async () => {
     let u = await fetchuser(username);
     setCurrentUser(u);
 
     let dbpayments = await fetchPayments(username);
     setPayments(dbpayments);
-  }, [username]);
+  };
 
   // Fetch data when the component mounts or username changes
   useEffect(() => {
     getData();
-  }, [getData]);
+  }, []);
 
   // Handle payment success notification
   useEffect(() => {
@@ -51,9 +51,9 @@ const PaymentPage = ({ username }) => {
         transition: Bounce,
       });
 
-      router.push(`${username}`);
+      router.push(`/${username}`);
     }
-  }, [searchParams, router, username]);
+  }, []);
 
   const handleChange = (e) => {
     setPaymentform({ ...paymentform, [e.target.name]: e.target.value });
@@ -68,6 +68,7 @@ const PaymentPage = ({ username }) => {
       currency: "INR",
       name: "CreatorHub",
       description: "Test Transaction",
+      image: "https://example.com/your_logo",
       order_id: orderId, // This is the order_id created in the backend
       callback_url: `${process.env.NEXT_PUBLIC_URL}/api/razorpay`, // Your success URL
       prefill: {
@@ -79,7 +80,7 @@ const PaymentPage = ({ username }) => {
         color: "#F37254",
       },
     };
-    const rzp = new Razorpay(options);
+    var rzp = new Razorpay(options);
     rzp.open();
   };
 

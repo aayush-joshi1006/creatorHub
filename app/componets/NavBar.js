@@ -8,6 +8,7 @@ import { BsThreeDots } from "react-icons/bs";
 const NavBar = () => {
 
   const { data: session } = useSession()
+  // const [showdropdown, setShowdropdown] = useState(false)
   // if (session) {
   //   return (
   //     <>

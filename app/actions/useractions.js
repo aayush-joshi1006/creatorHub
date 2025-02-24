@@ -9,9 +9,8 @@ export const initiate = async (amount, to_username, paymentform) => {
   await connectDB();
 
   let user = await User.findOne({ username: to_username });
-  const razorpayiddb = user.razorpayid;
   const secret = user.razorpaysecret;
-  var instance = new Razorpay({ key_id: razorpayiddb, key_secret: secret });
+  var instance = new Razorpay({ key_id: user.razorpayid, key_secret: secret });
 
   let options = {
     amount: Number.parseInt(amount),
@@ -47,7 +46,7 @@ export const fetchPayments = async (username) => {
 
 export const updateProfile = async (data, oldusername) => {
   await connectDB();
-  let ndata = data;
+  let ndata = Object.fromEntries(data);
 
   if (oldusername !== ndata.username) {
     let u = await User.findOne({ username: ndata.username });

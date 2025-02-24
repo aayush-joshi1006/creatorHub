@@ -79,7 +79,7 @@ import User from "@/app/models/User";
 import connectDB from "@/app/db/connectDb";
 // @/db/connectDb
 // Ensure database connection is established at startup
-connectDB();
+// connectDB();
 
 export const authoptions = NextAuth({
   secret: process.env.NEXTAUTH_SECRET,
@@ -90,9 +90,10 @@ export const authoptions = NextAuth({
     }),
   ],
   callbacks: {
-    async signIn({ user, account, profile }) {
+    async signIn({ user, account, profile, email, credentials }) {
       try {
         if (account.provider === "github") {
+          await connectDB();
           const email = user.email || profile?.email;
           if (!email) {
             console.error("Email not available during GitHub authentication");
@@ -101,9 +102,9 @@ export const authoptions = NextAuth({
 
           const currentUser = await User.findOne({ email });
           if (!currentUser) {
-            const newUser = new User({
-              email,
-              username: email.split("@")[0],
+            const newUser = await User.create({
+              email: user.email,
+              username: user.email.split("@")[0],
             });
             await newUser.save();
           }
@@ -114,7 +115,7 @@ export const authoptions = NextAuth({
         return false;
       }
     },
-    async session({ session, token }) {
+    async session({ session, user, token }) {
       try {
         const dbUser = await User.findOne({ email: session.user.email });
         session.user.name = dbUser?.username || session.user.name;
