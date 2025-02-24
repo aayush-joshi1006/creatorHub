@@ -2,9 +2,11 @@ import React from "react";
 import PaymentPage from "../componets/PaymentPage";
 import { notFound } from "next/navigation";
 import User from "../models/User";
+import connectDB from "../db/connectDb";
 
 const Username = async ({ params }) => {
   const checkUser = async () => {
+    await connectDB()
     let u = await User.findOne({ username: params.username });
     if (!u) {
       return notFound();
